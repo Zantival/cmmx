@@ -176,15 +176,32 @@ class MaintenanceController extends Controller
     public function updateStatus(Request $request, Maintenance $maintenance)
     {
         $this->authorizeOTAccess($maintenance);
-        $request->validate(['status' => 'required|in:Pending,In Progress,Completed']);
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,In Progress,Completed',
+            'next_maintenance_date' => 'nullable|date|after:today',
+        ]);
 
-        $data = ['status' => $request->status];
-        if ($request->status === 'Completed' && !$maintenance->completion_date) {
-            $data['completion_date'] = Carbon::now();
+        $data = ['status' => $validated['status']];
+        if ($validated['status'] === 'Completed') {
+            if (!$maintenance->completion_date) {
+                $data['completion_date'] = Carbon::now();
+            }
+
+            $equipment = $maintenance->equipment;
+            if ($equipment) {
+                $eqData = ['status' => 'Operational'];
+
+                $nextDate = $request->filled('next_maintenance_date')
+                    ? Carbon::parse($validated['next_maintenance_date'])
+                    : Carbon::now()->addMonths(3);
+
+                $eqData['next_maintenance_date'] = $nextDate;
+                $equipment->update($eqData);
+            }
         }
 
         $maintenance->update($data);
-        return back()->with('success', __('Estado actualizado correctamente.'));
+        return back()->with('success', __('Estado actualizado correctamente y equipo configurado como Operativo.'));
     }
 
     public function updateNotes(Request $request, Maintenance $maintenance)

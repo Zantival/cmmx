@@ -297,5 +297,16 @@
     "Métricas": "Metrics",
     "Inventario": "Inventory",
     "Activos": "Assets",
-    "Mi Panel": "My Panel"
+    "Mi Panel": "My Panel",
+    "Alertas de Mantenimiento Próximo": "Upcoming Maintenance Alerts",
+    "Atrasado por": "Overdue by",
+    "días": "days",
+    "Hoy": "Today",
+    "En": "In",
+    "Completar Orden de Trabajo": "Complete Work Order",
+    "Al completar esta orden de trabajo, el equipo pasará a estado Operativo. Por favor, programa la fecha para su próximo mantenimiento preventivo.": "When completing this work order, the equipment will be set to Operational. Please schedule the next preventive maintenance date.",
+    "Próxima Fecha de Mantenimiento": "Next Maintenance Date",
+    "Completar y Programar": "Complete & Schedule",
+    "Estado actualizado correctamente y equipo configurado como Operativo.": "Status updated successfully and equipment set to Operational.",
+    "Completar en Detalle": "Complete in Detail View"
 }

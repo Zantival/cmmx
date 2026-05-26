@@ -111,7 +111,7 @@
     {{-- Header --}}
     <div class="header">
         <div>
-            <div class="brand">CMM<span>X</span></div>
+            <div class="brand">Mec<span>App</span></div>
             <div class="subtitle">Sistema de Gestión de Mantenimiento Industrial</div>
         </div>
         <div class="wo-number">
@@ -233,7 +233,7 @@
 
     {{-- Footer --}}
     <div class="footer">
-        <div>CMMX — Sistema de Gestión de Mantenimiento Industrial</div>
+        <div>MecApp — Sistema de Gestión de Mantenimiento Industrial</div>
         <div>WO-{{ str_pad($maintenance->id, 5, '0', STR_PAD_LEFT) }} | Generado: {{ now()->format('d/m/Y H:i') }}</div>
     </div>
 

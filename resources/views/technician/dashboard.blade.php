@@ -84,6 +84,52 @@
     </div>
     @endif
 
+    @if(isset($upcomingMaintenanceEquipments) && $upcomingMaintenanceEquipments->isNotEmpty())
+    <div class="alert alert-warning mb-4 animate-in border-0 shadow-sm" style="border-radius:12px; background:#FFFBEB; border-left:4px solid #F59E0B!important; padding:1.25rem;">
+        <div class="d-flex align-items-start gap-3">
+            <div style="background:#FEF3C7; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <i class="bi bi-exclamation-triangle-fill" style="color:#D97706; font-size:1.1rem;"></i>
+            </div>
+            <div style="flex:1; min-width:0;">
+                <h6 class="fw-bold mb-1" style="color:#78350F; font-size:0.9rem;">
+                    {{ __('Alertas de Mantenimiento Próximo') }}
+                </h6>
+                <div class="row g-2 mt-2">
+                    @foreach($upcomingMaintenanceEquipments as $eq)
+                        @php
+                            $days = $eq->days_to_next_maintenance;
+                            $badgeText = '';
+                            $badgeStyle = '';
+                            if ($days === null) {
+                                continue;
+                            } elseif ($days < 0) {
+                                $badgeText = __('Atrasado por') . ' ' . abs($days) . ' ' . __('días');
+                                $badgeStyle = 'background:#FEE2E2; color:#991B1B;';
+                            } elseif ($days === 0) {
+                                $badgeText = __('Hoy');
+                                $badgeStyle = 'background:#FEF3C7; color:#78350F;';
+                            } else {
+                                $badgeText = __('En') . ' ' . $days . ' ' . __('días');
+                                $badgeStyle = 'background:#E0F2FE; color:#0369A1;';
+                            }
+                        @endphp
+                        <div class="col-sm-6 col-md-4">
+                            <div class="d-flex align-items-center justify-content-between p-2 bg-white rounded border border-light" style="font-size:0.8rem;">
+                                <a href="{{ route('equipment.show', $eq->id) }}" class="fw-semibold text-decoration-none" style="color:#1E293B; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:60%;">
+                                    {{ $eq->name }}
+                                </a>
+                                <span class="badge-status py-1 px-2 font-monospace" style="font-size:0.7rem; font-weight:700; border-radius:20px; {{ $badgeStyle }}">
+                                    {{ $badgeText }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="row g-4">
         <div class="col-lg-8">
 
@@ -105,10 +151,7 @@
                         </div>
                         <div class="d-flex gap-2 flex-shrink-0">
                             <a href="{{ route('maintenances.show', $ot->id) }}" class="btn btn-sm" style="background:#FEF3C7;color:#78350F;border:none;border-radius:8px;font-size:.76rem;font-weight:600;"><i class="bi bi-eye me-1"></i>{{ __('Ver') }}</a>
-                            <form method="POST" action="{{ route('maintenances.status', $ot->id) }}" class="d-inline">
-                                @csrf <input type="hidden" name="_method" value="PATCH"><input type="hidden" name="status" value="Completed">
-                                <button class="btn btn-sm" style="background:#D1FAE5;color:#065F46;border:none;border-radius:8px;font-size:.76rem;font-weight:600;"><i class="bi bi-check-circle me-1"></i>{{ __('Completar') }}</button>
-                            </form>
+                            <a href="{{ route('maintenances.show', $ot->id) }}" class="btn btn-sm" style="background:#D1FAE5;color:#065F46;border:none;border-radius:8px;font-size:.76rem;font-weight:600;"><i class="bi bi-check-circle me-1"></i>{{ __('Completar') }}</a>
                         </div>
                     </div>
                     @endforeach
@@ -230,13 +273,9 @@
                                                         </form>
                                                     </li>
                                                     <li>
-                                                        <form action="{{ route('maintenances.status', $ot->id) }}" method="POST">
-                                                            @csrf <input type="hidden" name="_method" value="PATCH">
-                                                            <input type="hidden" name="status" value="Completed">
-                                                            <button type="submit" class="dropdown-item d-flex align-items-center gap-2">
-                                                                <span class="badge-pill bp-done p-1 px-2">✅</span> {{ __('Completada') }}
-                                                            </button>
-                                                        </form>
+                                                        <a href="{{ route('maintenances.show', $ot->id) }}" class="dropdown-item d-flex align-items-center gap-2">
+                                                            <span class="badge-pill bp-done p-1 px-2">✅</span> {{ __('Completar en Detalle') }}
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>

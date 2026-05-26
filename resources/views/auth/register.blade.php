@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'CMMX') }} — {{ __('Registro') }}</title>
+    <title>{{ config('app.name', 'MecApp') }} — {{ __('Registro') }}</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -264,7 +264,7 @@
         <div class="login-header">
             <a href="/" class="brand">
                 <div class="brand-icon">🏭</div>
-                <div class="brand-text">{{ config('app.name', 'CMMX') }}</div>
+                <div class="brand-text">{{ config('app.name', 'MecApp') }}</div>
             </a>
             <h2>{{ __('Crear Cuenta') }}</h2>
             <p>{{ __('Regístrate como Técnico') }}</p>

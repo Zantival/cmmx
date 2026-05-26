@@ -308,5 +308,16 @@
     "Métricas": "Métricas",
     "Inventario": "Inventario",
     "Activos": "Activos",
-    "Mi Panel": "Mi Panel"
+    "Mi Panel": "Mi Panel",
+    "Alertas de Mantenimiento Próximo": "Alertas de Mantenimiento Próximo",
+    "Atrasado por": "Atrasado por",
+    "días": "días",
+    "Hoy": "Hoy",
+    "En": "En",
+    "Completar Orden de Trabajo": "Completar Orden de Trabajo",
+    "Al completar esta orden de trabajo, el equipo pasará a estado Operativo. Por favor, programa la fecha para su próximo mantenimiento preventivo.": "Al completar esta orden de trabajo, el equipo pasará a estado Operativo. Por favor, programa la fecha para su próximo mantenimiento preventivo.",
+    "Próxima Fecha de Mantenimiento": "Próxima Fecha de Mantenimiento",
+    "Completar y Programar": "Completar y Programar",
+    "Estado actualizado correctamente y equipo configurado como Operativo.": "Estado actualizado correctamente y equipo configurado como Operativo.",
+    "Completar en Detalle": "Completar en Detalle"
 }

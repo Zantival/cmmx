@@ -47,7 +47,7 @@
         *, *::before, *::after { box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--surface);
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 40%, #F0FDF4 100%);
             color: var(--text-primary);
             margin: 0;
             padding-top: var(--nav-h);
@@ -286,65 +286,71 @@
 
         /* ─── CARDS ─── */
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226,232,240,0.8);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .card:hover { box-shadow: var(--shadow-md); }
-        .card.no-hover:hover { box-shadow: var(--shadow-sm); transform: none; }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .card.no-hover:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); transform: none; }
 
         /* KPI Cards */
         .kpi-card {
             border-radius: var(--radius-lg);
-            padding: 1.25rem;
+            padding: 1.35rem;
             position: relative;
             overflow: hidden;
             border: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
         .kpi-card .kpi-icon {
-            width: 40px; height: 40px;
+            width: 44px; height: 44px;
             border-radius: var(--radius-md);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
         }
         .kpi-card .kpi-value {
-            font-size: 1.9rem;
+            font-size: 2.1rem;
             font-weight: 800;
             line-height: 1;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         .kpi-card .kpi-label {
-            font-size: 0.75rem;
-            font-weight: 500;
-            opacity: 0.8;
+            font-size: 0.76rem;
+            font-weight: 600;
+            opacity: 0.85;
+            letter-spacing: 0.3px;
         }
         .kpi-card .kpi-decoration {
             position: absolute;
-            right: -16px; bottom: -16px;
-            width: 80px; height: 80px;
+            right: -20px; bottom: -20px;
+            width: 90px; height: 90px;
             border-radius: 50%;
-            opacity: 0.08;
+            opacity: 0.12;
         }
 
-        .kpi-success { background: linear-gradient(135deg, #10B981, #059669); color: #fff; }
-        .kpi-success .kpi-icon { background: rgba(255,255,255,0.2); color: #fff; }
+        .kpi-success { background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.3); }
+        .kpi-success .kpi-icon { background: rgba(255,255,255,0.25); color: #fff; }
         .kpi-success .kpi-decoration { background: #fff; }
 
-        .kpi-warning { background: linear-gradient(135deg, #F59E0B, #D97706); color: #fff; }
-        .kpi-warning .kpi-icon { background: rgba(255,255,255,0.2); color: #fff; }
+        .kpi-warning { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: #fff; box-shadow: 0 4px 20px rgba(245,158,11,0.3); }
+        .kpi-warning .kpi-icon { background: rgba(255,255,255,0.25); color: #fff; }
         .kpi-warning .kpi-decoration { background: #fff; }
 
-        .kpi-danger  { background: linear-gradient(135deg, #EF4444, #DC2626); color: #fff; }
-        .kpi-danger .kpi-icon  { background: rgba(255,255,255,0.2); color: #fff; }
+        .kpi-danger  { background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: #fff; box-shadow: 0 4px 20px rgba(239,68,68,0.3); }
+        .kpi-danger .kpi-icon  { background: rgba(255,255,255,0.25); color: #fff; }
         .kpi-danger .kpi-decoration { background: #fff; }
 
-        .kpi-info    { background: linear-gradient(135deg, #6366F1, #4F46E5); color: #fff; }
-        .kpi-info .kpi-icon    { background: rgba(255,255,255,0.2); color: #fff; }
+        .kpi-info    { background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%); color: #fff; box-shadow: 0 4px 20px rgba(99,102,241,0.3); }
+        .kpi-info .kpi-icon    { background: rgba(255,255,255,0.25); color: #fff; }
         .kpi-info .kpi-decoration { background: #fff; }
 
         /* ─── Status Badges ─── */
@@ -454,25 +460,28 @@
 
         /* ─── Page Header ─── */
         .page-header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226,232,240,0.7);
+            padding: 1.1rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 0.75rem;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.05);
         }
         .page-header h1 {
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 800;
             margin: 0;
             color: var(--navy);
+            letter-spacing: -0.3px;
         }
         .page-breadcrumb {
             font-size: 0.73rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            margin-top: 3px;
         }
         .page-actions {
             display: flex;
@@ -482,9 +491,9 @@
         }
 
         /* ─── Content Area ─── */
-        .content-area { padding: 1.25rem; }
+        .content-area { padding: 1.5rem; }
         @media(max-width: 575.98px) {
-            .content-area { padding: 1rem 0.875rem; }
+            .content-area { padding: 1rem; }
         }
 
         /* ─── Micro-animations ─── */
@@ -652,7 +661,7 @@
         <!-- Logo -->
         <a href="{{ route('dashboard') }}" class="nav-logo">
             <div class="logo-icon"><i class="bi bi-cpu-fill"></i></div>
-            <span class="logo-text">CMM<span>X</span></span>
+            <span class="logo-text">Mec<span>App</span></span>
         </a>
 
         <!-- Desktop Nav Links -->
@@ -782,7 +791,7 @@
         <div class="drawer-header">
             <div class="nav-logo" style="margin:0;">
                 <div class="logo-icon"><i class="bi bi-cpu-fill"></i></div>
-                <span class="logo-text">CMM<span>X</span></span>
+                <span class="logo-text">Mec<span>App</span></span>
             </div>
             <button class="drawer-close" id="drawerClose"><i class="bi bi-x-lg"></i></button>
         </div>

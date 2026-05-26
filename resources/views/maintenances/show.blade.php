@@ -159,16 +159,10 @@
                             </button>
                         </form>
                         @endif
-
-                        <form method="POST" action="{{ route('maintenances.status', $maintenance->id) }}">
-                            @csrf
-                            <input type="hidden" name="_method" value="PATCH">
-                            <input type="hidden" name="status" value="Completed">
-                            <button type="submit" class="btn btn-sm fw-semibold"
-                                    style="background:#D1FAE5;color:#065F46;border:none;border-radius:8px;padding:8px 16px;">
-                                <i class="bi bi-check-circle me-1"></i>{{ __('Marcar Completada') }}
-                            </button>
-                        </form>
+                        <button type="button" class="btn btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#completeMaintenanceModal"
+                                style="background:#D1FAE5;color:#065F46;border:none;border-radius:8px;padding:8px 16px;">
+                            <i class="bi bi-check-circle me-1"></i>{{ __('Marcar Completada') }}
+                        </button>
                     </div>
                     @else
                     <div class="d-flex align-items-center gap-2" style="color:#10B981;font-weight:600;font-size:.875rem;">
@@ -284,15 +278,22 @@
                     <div class="d-flex gap-2 flex-wrap">
                         @foreach(['Pending'=>['⏳','#DBEAFE','#1E40AF'],'In Progress'=>['▶','#FEF3C7','#78350F'],'Completed'=>['✅','#D1FAE5','#065F46']] as $sv=>[$emoji,$bg,$col])
                         @if($sv !== $maintenance->status)
-                        <form method="POST" action="{{ route('maintenances.status', $maintenance->id) }}">
-                            @csrf
-                            <input type="hidden" name="_method" value="PATCH">
-                            <input type="hidden" name="status" value="{{ $sv }}">
-                            <button type="submit" class="btn btn-sm fw-semibold"
+                            @if($sv === 'Completed')
+                            <button type="button" class="btn btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#completeMaintenanceModal"
                                     style="background:{{ $bg }};color:{{ $col }};border:none;border-radius:8px;padding:8px 14px;">
-                                {{ $emoji }} {{ $sv === 'Pending' ? __('Marcar Pendiente') : ($sv === 'In Progress' ? __('Marcar En Progreso') : __('Marcar Completada')) }}
+                                {{ $emoji }} {{ __('Marcar Completada') }}
                             </button>
-                        </form>
+                            @else
+                            <form method="POST" action="{{ route('maintenances.status', $maintenance->id) }}">
+                                @csrf
+                                <input type="hidden" name="_method" value="PATCH">
+                                <input type="hidden" name="status" value="{{ $sv }}">
+                                <button type="submit" class="btn btn-sm fw-semibold"
+                                        style="background:{{ $bg }};color:{{ $col }};border:none;border-radius:8px;padding:8px 14px;">
+                                    {{ $emoji }} {{ $sv === 'Pending' ? __('Marcar Pendiente') : __('Marcar En Progreso') }}
+                                </button>
+                            </form>
+                            @endif
                         @endif
                         @endforeach
                     </div>
@@ -362,5 +363,47 @@
             </div>
         </div>
     </div>
+
+{{-- Modal de Confirmación de Completado y Fecha de Próximo Mantenimiento --}}
+<div class="modal fade" id="completeMaintenanceModal" tabindex="-1" aria-labelledby="completeMaintenanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header text-white" style="background: linear-gradient(135deg, #0A192F 0%, #112240 100%); border: none;">
+                <h5 class="modal-title fw-bold" id="completeMaintenanceModalLabel">
+                    <i class="bi bi-check-circle-fill me-2 text-success"></i>{{ __('Completar Orden de Trabajo') }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{{ route('maintenances.status', $maintenance->id) }}">
+                @csrf
+                <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="status" value="Completed">
+                <div class="modal-body p-4" style="background: #F8FAFC; color: #1E293B;">
+                    <p class="mb-4" style="font-size: 0.9rem; line-height: 1.6; color: #475569;">
+                        {{ __('Al completar esta orden de trabajo, el equipo pasará a estado Operativo. Por favor, programa la fecha para su próximo mantenimiento preventivo.') }}
+                    </p>
+
+                    <div class="mb-3">
+                        <label for="next_maintenance_date" class="form-label fw-bold" style="font-size: 0.8rem; text-transform: uppercase; color: #64748B; letter-spacing: 0.5px;">
+                            {{ __('Próxima Fecha de Mantenimiento') }}
+                        </label>
+                        <input type="date" name="next_maintenance_date" id="next_maintenance_date" class="form-control"
+                               min="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d') }}"
+                               value="{{ \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') }}"
+                               style="border-radius: 10px; border-color: #CBD5E1; padding: 10px 14px;" required>
+                    </div>
+                </div>
+                <div class="modal-footer p-3" style="background: #F1F5F9; border: none;">
+                    <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal" style="border-radius: 10px; padding: 8px 16px;">
+                        {{ __('Cancelar') }}
+                    </button>
+                    <button type="submit" class="btn text-white fw-semibold" style="background: #10B981; border-radius: 10px; padding: 8px 20px;">
+                        {{ __('Completar y Programar') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 @endsection

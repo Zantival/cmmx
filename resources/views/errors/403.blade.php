@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>403 — Sin acceso · CMMX</title>
+    <title>403 — Sin acceso · MecApp</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -115,7 +115,7 @@
                 <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
             </a>
         @endif
-        <div class="logo">CMM<span>X</span> · Sistema CMMS Industrial</div>
+        <div class="logo">Mec<span>App</span> · Sistema CMMS Industrial</div>
     </div>
 </body>
 </html>

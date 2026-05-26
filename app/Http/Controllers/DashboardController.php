@@ -44,10 +44,11 @@ class DashboardController extends Controller
             'totalTechnicians' => \App\Models\User::where('role', 'Technician')->count(),
             'technicianList'   => $this->dashboard->getTechnicianList(),
 
-            // Feeds de actividad
+            // Feeds de actividad y alertas
             'recentMaintenances'  => $this->dashboard->getRecentMaintenances(),
             'upcomingMaintenances'=> $this->dashboard->getUpcomingMaintenances(),
             'lowStockItems'       => $this->dashboard->getLowStockItems(),
+            'upcomingMaintenanceEquipments' => $this->dashboard->getUpcomingMaintenanceEquipments(),
 
             // Datos de gráfico
             'chartLabels'      => $chart['labels'],

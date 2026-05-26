@@ -1,0 +1,91 @@
+/* Custom CSS for MecApp – premium modern UI */
+
+/* Global gradient background */
+body {
+  background: linear-gradient(135deg, #0A192F 0%, #1E293B 100%);
+  color: #E5E7EB;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism card style */
+.card-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-glass:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+}
+
+/* Card header */
+.card-glass .card-header {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  margin-bottom: 0.75rem;
+}
+
+/* Card content */
+.card-glass .card-body {
+  font-size: 0.85rem;
+  color: #E2E8F0;
+}
+
+/* Badge styles */
+.badge-glass {
+  background: rgba(255,255,255,0.12);
+  color: #F1F5F9;
+  border-radius: 12px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* KPI card specific tweaks */
+.kpi-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+.kpi-card .kpi-icon i {
+  font-size: 1.4rem;
+  color: #93C5FD;
+}
+.kpi-card .kpi-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  margin-top: 0.4rem;
+}
+.kpi-card .kpi-label {
+  font-size: 0.85rem;
+  color: #CBD5E1;
+  margin-top: 0.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-glass { padding: 1rem; }
+  .kpi-card .kpi-value { font-size: 1.4rem; }
+}
+
+/* Utility classes */
+.text-primary { color: #38BDF8 !important; }
+.text-secondary { color: #94A3B8 !important; }
+.bg-primary { background-color: #38BDF8 !important; }
+.bg-secondary { background-color: #94A3B8 !important; }

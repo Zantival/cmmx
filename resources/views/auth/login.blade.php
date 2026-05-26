@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'CMMX') }} — {{ __('Acceso') }}</title>
+    <title>{{ config('app.name', 'MecApp') }} — {{ __('Acceso') }}</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,7 +195,7 @@
             <div class="logo-box">
                 <i class="bi bi-cpu-fill"></i>
             </div>
-            <h1 class="brand-name">CMM<span>X</span></h1>
+            <h1 class="brand-name">Mec<span>App</span></h1>
             <p class="text-muted small mb-4">{{ __('Sistema de Gestión de Mantenimiento') }}</p>
         </div>
 
@@ -219,7 +219,7 @@
                 <label class="form-label">{{ __('Correo Electrónico') }}</label>
                 <div class="input-group-custom">
                     <input type="email" name="email" class="form-control" value="{{ old('email') }}"
-                           placeholder="usuario@cmmx.com" required autofocus>
+                           placeholder="usuario@mecapp.com" required autofocus>
                     <i class="bi bi-envelope"></i>
                 </div>
             </div>

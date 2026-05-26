@@ -170,11 +170,28 @@ class DashboardService
         $myEquipmentIds = $allMyOTs->pluck('equipment_id')->unique();
         $myEquipment    = Equipment::whereIn('id', $myEquipmentIds)->get();
 
+        $upcomingMaintenanceEquipments = Equipment::whereIn('id', $myEquipmentIds)
+            ->whereNotNull('next_maintenance_date')
+            ->where('next_maintenance_date', '<=', Carbon::today()->addDays(7))
+            ->orderBy('next_maintenance_date')
+            ->get();
+
         return compact(
             'allMyOTs', 'myPending', 'myInProgress', 'myCompleted', 'myTotal',
             'urgentOTs', 'inProgressOTs', 'upcomingOTs', 'recentCompleted',
             'myMaintenances', 'chartLabels', 'chartData',
-            'myEquipment', 'completionRate',
+            'myEquipment', 'completionRate', 'upcomingMaintenanceEquipments',
         );
+    }
+
+    /**
+     * Equipos con fecha de mantenimiento próxima (en 7 días o menos) o vencida.
+     */
+    public function getUpcomingMaintenanceEquipments()
+    {
+        return Equipment::whereNotNull('next_maintenance_date')
+            ->where('next_maintenance_date', '<=', Carbon::today()->addDays(7))
+            ->orderBy('next_maintenance_date')
+            ->get();
     }
 }
