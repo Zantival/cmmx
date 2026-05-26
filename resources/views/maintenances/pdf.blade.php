@@ -48,12 +48,12 @@
         .info-grid { display: flex; gap: 20px; margin-bottom: 20px; }
         .info-block { flex: 1; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px; }
         .info-block .block-title {
-            font-size: 7.5pt; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1.2px; color: #64748B; margin-bottom: 10px;
-            border-bottom: 1px solid #F1F5F9; padding-bottom: 6px;
-        }
+    font-size: 8.5pt; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.2px; color: #475569; margin-bottom: 10px;
+    border-bottom: 1px solid #F1F5F9; padding-bottom: 6px;
+}
         .info-row { margin-bottom: 6px; }
-        .info-label { font-size: 7.5pt; color: #94A3B8; }
+        .info-label { font-size: 7.5pt; color: #0F172A; font-weight: 600; }
         .info-value { font-size: 9.5pt; font-weight: 600; color: #1E293B; }
 
         /* ─── Description ─── */
@@ -80,7 +80,7 @@
         /* ─── Signature Area ─── */
         .signatures { display: flex; gap: 20px; margin-top: 10px; }
         .sig-block { flex: 1; border-top: 1px solid #CBD5E1; padding-top: 8px; }
-        .sig-label { font-size: 8pt; color: #64748B; }
+        .sig-label { font-size: 8pt; color: #0F172A; }
         .sig-name { font-size: 9pt; font-weight: 600; color: #1E293B; margin-top: 4px; }
 
         /* ─── Footer ─── */

@@ -346,19 +346,78 @@
                 </div>
             </div>
 
-            {{-- Equipos Asignados --}}
-            <div class="card no-hover animate-in delay-3">
-                <div class="card-body p-4">
-                    <h6 class="section-title"><i class="bi bi-cpu"></i> {{ __('Equipos Asignados') }}</h6>
+            {{-- Equipos a Mantener --}}
+            <div class="card no-hover animate-in delay-3" style="border:none; overflow:hidden;">
+                <div class="card-body p-0">
+                    <div class="px-4 py-3 d-flex align-items-center justify-content-between" style="border-bottom:1px solid var(--border); background:linear-gradient(135deg,#F0F9FF,#EFF6FF);">
+                        <h6 class="section-title mb-0">
+                            <i class="bi bi-cpu-fill" style="color:#6366F1;"></i>
+                            {{ __('Mis Equipos a Mantener') }}
+                        </h6>
+                        <span class="badge rounded-pill" style="background:#6366F1;color:#fff;font-size:0.7rem;padding:4px 10px;">{{ $myEquipment->count() }}</span>
+                    </div>
+
                     @if($myEquipment->isEmpty())
-                        <div class="empty-state"><i class="bi bi-cpu"></i>{{ __('Sin equipos asignados.') }}</div>
+                    <div class="empty-state"><i class="bi bi-cpu"></i>{{ __('Sin equipos asignados.') }}</div>
                     @else
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-column">
                         @foreach($myEquipment as $eq)
-                        @php $dc=match($eq->status){'Operational'=>'#10B981','In Repair'=>'#F59E0B','Out of Service'=>'#EF4444',default=>'#94A3B8'}; @endphp
-                        <a href="{{ route('equipment.show', $eq->id) }}" class="equip-chip">
-                            <span class="dot" style="background:{{ $dc }};"></span>{{ $eq->name }}
-                        </a>
+                        @php
+                            $statusColor = match($eq->status) {
+                                'Operational'   => '#10B981',
+                                'In Repair'     => '#F59E0B',
+                                'Out of Service'=> '#EF4444',
+                                default         => '#94A3B8'
+                            };
+                            $statusLabel = match($eq->status) {
+                                'Operational'   => __('Operativo'),
+                                'In Repair'     => __('En Reparación'),
+                                'Out of Service'=> __('Fuera de Servicio'),
+                                default         => $eq->status
+                            };
+                            $statusBg = match($eq->status) {
+                                'Operational'   => '#D1FAE5',
+                                'In Repair'     => '#FEF3C7',
+                                'Out of Service'=> '#FEE2E2',
+                                default         => '#F1F5F9'
+                            };
+                            // OT activa de este técnico sobre este equipo
+                            $activeOT = $allMyOTs->where('equipment_id', $eq->id)
+                                ->whereIn('status', ['Pending','In Progress'])
+                                ->sortByDesc('id')->first();
+                        @endphp
+                        <div style="padding:0.875rem 1rem; border-bottom:1px solid var(--border); transition:background 0.15s;" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background='transparent'">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <a href="{{ route('equipment.show', $eq->id) }}" style="font-weight:700; font-size:0.875rem; color:var(--navy); text-decoration:none;">
+                                    {{ $eq->name }}
+                                </a>
+                                <span style="background:{{ $statusBg }};color:{{ $statusColor }};font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;">
+                                    <i class="bi bi-circle-fill me-1" style="font-size:0.4rem;vertical-align:middle;"></i>{{ $statusLabel }}
+                                </span>
+                            </div>
+                            <div style="font-size:0.73rem;color:var(--text-muted); margin-bottom:0.5rem;">
+                                <i class="bi bi-geo-alt me-1"></i>{{ $eq->location ?? '—' }}
+                                @if($eq->code) &nbsp;·&nbsp; <span style="font-family:monospace;">{{ $eq->code }}</span>@endif
+                            </div>
+                            @if($activeOT)
+                            <div class="d-flex align-items-center justify-content-between" style="background:{{ $activeOT->status === 'In Progress' ? '#FFFBEB' : '#EFF6FF' }};border-radius:8px;padding:6px 10px;">
+                                <div style="font-size:0.75rem; color:{{ $activeOT->status === 'In Progress' ? '#78350F' : '#1E40AF' }}; font-weight:600;">
+                                    <i class="bi bi-{{ $activeOT->status === 'In Progress' ? 'arrow-repeat' : 'clock' }} me-1"></i>
+                                    OT #{{ str_pad($activeOT->id,4,'0',STR_PAD_LEFT) }} &nbsp;·&nbsp;
+                                    {{ $activeOT->type === 'Preventive' ? __('Preventivo') : __('Correctivo') }}
+                                    &nbsp;·&nbsp; {{ \Carbon\Carbon::parse($activeOT->date)->format('d/m/Y') }}
+                                </div>
+                                <a href="{{ route('maintenances.show', $activeOT->id) }}"
+                                   style="background:{{ $activeOT->status === 'In Progress' ? '#F59E0B' : '#3B82F6' }};color:#fff;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:8px;text-decoration:none;">
+                                    <i class="bi bi-arrow-right-circle me-1"></i>{{ __('Ver OT') }}
+                                </a>
+                            </div>
+                            @else
+                            <div style="font-size:0.73rem;color:#10B981;font-weight:600;">
+                                <i class="bi bi-check-circle me-1"></i>{{ __('Sin OTs pendientes') }}
+                            </div>
+                            @endif
+                        </div>
                         @endforeach
                     </div>
                     @endif

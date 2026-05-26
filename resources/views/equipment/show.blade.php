@@ -3,27 +3,31 @@
 
 @push('styles')
 <style nonce="{{ $cspNonce }}">
-.eq-hero { background: linear-gradient(135deg, #0A192F 0%, #112240 60%, #1E3A5F 100%); border-radius: 16px; padding: 1.75rem; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
-.eq-hero::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; border-radius: 50%; background: rgba(56,189,248,0.07); }
-.eq-hero::after { content: ''; position: absolute; bottom: -30px; left: 40%; width: 120px; height: 120px; border-radius: 50%; background: rgba(56,189,248,0.04); }
-.detail-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 0.73rem; font-weight: 700; }
-.info-row { display: flex; align-items: flex-start; gap: 10px; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+/* hero */
+.eq-hero { background: linear-gradient(135deg, #0A192F 0%, #112240 60%, #1E3A5F 100%); padding: 2rem 1.5rem; position: relative; overflow: hidden; margin: 0 0 0 0; }
+.eq-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(56,189,248,0.08); }
+.eq-hero::after  { content: ''; position: absolute; bottom: -40px; left: 38%; width: 150px; height: 150px; border-radius: 50%; background: rgba(56,189,248,0.04); }
+/* ficha labels */
+.info-row { display: flex; align-items: flex-start; gap: 10px; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
 .info-row:last-child { border-bottom: none; }
-.info-row .ir-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); min-width: 130px; padding-top: 2px; }
-.info-row .ir-value { font-size: 0.875rem; color: var(--text-primary); font-weight: 500; }
+.info-row .ir-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #374151; min-width: 130px; padding-top: 2px; }
+.info-row .ir-value { font-size: 0.875rem; color: #0F172A; font-weight: 600; }
+/* history */
 .history-item { display: flex; gap: 12px; padding: 0.875rem 0; border-bottom: 1px solid var(--border); }
 .history-item:last-child { border-bottom: none; }
 .hist-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-.kpi-mini { background: var(--surface); border-radius: 12px; padding: 1rem; text-align: center; }
-.kpi-mini .val { font-size: 1.6rem; font-weight: 800; color: var(--navy); line-height: 1; }
-.kpi-mini .lbl { font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; }
+/* mini kpis */
+.kpi-mini { background: linear-gradient(135deg,#F0F9FF,#EFF6FF); border: 1px solid #DBEAFE; border-radius: 12px; padding: 1rem; text-align: center; }
+.kpi-mini .val { font-size: 1.7rem; font-weight: 800; color: var(--navy); line-height: 1; }
+.kpi-mini .lbl { font-size: 0.68rem; color: #475569; margin-top: 4px; font-weight: 600; }
 </style>
 @endpush
 
 @section('content')
-
+<div class="content-area" style="padding-bottom:0;">
 {{-- Hero Banner --}}
-<div class="eq-hero animate-in">
+<div class="eq-hero animate-in" style="border-radius:16px; margin-bottom:1.5rem;">
+
     <div style="position:relative;z-index:1;">
         <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-3">
             <div>
@@ -97,6 +101,9 @@
         </div>
     </div>
 </div>
+
+</div>{{-- /eq-hero --}}
+</div>{{-- /content-area header --}}
 
 <div class="content-area">
     @if(session('success'))
